@@ -1,0 +1,7 @@
+Anforderungen
+
+- Orders kommen im Verzeichnis ordersin an
+- Orders mit Volumen > 5000 EUR sollen in das verzeichnis bigorders gelegt werden, 
+  alle anderen orders in das Verzeichnis smallorders
+- Zusätzlich soll für alle grossen Orders eine Mail an sales gesendet werden, 
+  mit einem Hinweis auf den Kunden und die Ordersumme
