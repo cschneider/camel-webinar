@@ -16,9 +16,9 @@
  */
 package org.talend.example;
 
-import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.spring.Main;
+import org.talend.example.commands.CommandParser;
 
 /**
  * A Camel Router

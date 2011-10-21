@@ -3,6 +3,7 @@ package org.talend.example;
 import junit.framework.Assert;
 
 import org.junit.Test;
+import org.talend.example.commands.CommandParser;
 import org.talend.example.commands.GetCommand;
 import org.talend.example.commands.ListCommand;
 
