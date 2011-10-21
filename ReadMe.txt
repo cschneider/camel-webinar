@@ -4,14 +4,22 @@ Examples from several camel webinars
 About the authors
 -----------------
 
+Hadrian Zbarcea
+	Open Source Architect working full time on Apache Camel
+	Twitter: 	https://twitter.com/#!/hgz
+				@hgz	
+	Blog: 		http://camelbot.blogspot.com/
+
 Christian Schneider
 	Open Source Architect working full time on Apache Camel, CXF and Karaf
-	Twitter: 	https://twitter.com/#!/schneider_chris	@schneider_chris	
+	Twitter: 	https://twitter.com/#!/schneider_chris
+				@schneider_chris	
 	Blog: 		http://www.liquid-reality.de
 
 Bernhard Schuhmann
 	Senior Consultant
-	Twitter: 	https://twitter.com/#!/schuhmab			@schuhmab
+	Twitter: 	https://twitter.com/#!/schuhmab
+				@schuhmab
 
 
 Prerequisites
