@@ -41,7 +41,7 @@ public class JaxbRouteBuilder extends RouteBuilder {
     	 * We us the jms url vm://test to install an embedded broker on the fly. So 
     	 * we do not have to start an external broker for the example
     	 */
-        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://test");
+        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://test?broker.persistent=false");
         JmsConfiguration jmsconfig = new JmsConfiguration(connectionFactory);
         JmsComponent jms = new JmsComponent(jmsconfig);
         context.addComponent("jms", jms);
@@ -56,12 +56,23 @@ public class JaxbRouteBuilder extends RouteBuilder {
         Customer customer = new Customer("Christian Schneider", 38);
         
         /**
+         * Create dynamic proxy that can be called using the user supplied interface. It sends the parameter object to the endpoint
+         * and optionally returns the response as the return type 
+         */
+        CustomerSender senderFile = PojoProxyHelper.createProxy(context.getEndpoint("file://target/out"), CustomerSender.class);
+        CustomerSender senderJms = PojoProxyHelper.createProxy(context.getEndpoint("jms://test"), CustomerSender.class);
+
+        
+        senderFile.send(customer);
+        senderJms.send(customer);
+        
+        /**
          * Send the object using the file and jms component.
          * As serialization is required the object will be automatically serialized using jaxb  
          */
         ProducerTemplate producer = context.createProducerTemplate();
-        producer.sendBody("file://target/out", customer);
-        producer.sendBody("jms://test", customer);
+        //producer.sendBody("file://target/out", customer);
+        //producer.sendBody("jms://test", customer);
         
         // At this point you should copy the file from the out dir to the in dir to see that it is processed
         System.in.read();
