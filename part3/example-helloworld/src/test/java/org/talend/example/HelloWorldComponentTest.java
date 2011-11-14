@@ -43,7 +43,7 @@ public class HelloWorldComponentTest extends CamelTestSupport {
     	String request = "Hello Camel World!";
         MockEndpoint mock = getMockEndpoint("mock:result");
         mock.expectedMessageCount(1);       
-        mock.expectedBodyReceived().constant("Goodbye World");
+        mock.expectedBodyReceived().constant("Some value");
         
         template.sendBody("direct://trycatch", request);
 

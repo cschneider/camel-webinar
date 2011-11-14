@@ -51,4 +51,5 @@ public class HelloWorldEndpoint extends DirectEndpoint {
     public static String codec(String request) {
     	return new StringBuffer(request).reverse().toString();
     }
+
 }

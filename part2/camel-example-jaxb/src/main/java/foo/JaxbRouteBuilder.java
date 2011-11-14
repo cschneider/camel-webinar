@@ -21,6 +21,7 @@ import javax.jms.ConnectionFactory;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.bean.PojoProxyHelper;
 import org.apache.camel.component.jms.JmsComponent;
 import org.apache.camel.component.jms.JmsConfiguration;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -53,6 +54,16 @@ public class JaxbRouteBuilder extends RouteBuilder {
     	 */
         context.start();
 
+        sendWithInterface(context);
+
+        sendWithProducer(context);
+        
+        // At this point you should copy the file from the out dir to the in dir to see that it is processed
+        System.in.read();
+        context.shutdown();
+    }
+
+    private static void sendWithInterface(DefaultCamelContext context) throws Exception {
         Customer customer = new Customer("Christian Schneider", 38);
         
         /**
@@ -61,22 +72,20 @@ public class JaxbRouteBuilder extends RouteBuilder {
          */
         CustomerSender senderFile = PojoProxyHelper.createProxy(context.getEndpoint("file://target/out"), CustomerSender.class);
         CustomerSender senderJms = PojoProxyHelper.createProxy(context.getEndpoint("jms://test"), CustomerSender.class);
-
         
         senderFile.send(customer);
         senderJms.send(customer);
-        
-        /**
-         * Send the object using the file and jms component.
-         * As serialization is required the object will be automatically serialized using jaxb  
-         */
+    }
+
+    /**
+     * Send the object using the file and jms component.
+     * As serialization is required the object will be automatically serialized using jaxb  
+     */
+    private static void sendWithProducer(DefaultCamelContext context) {
+        Customer customer = new Customer("Christian Schneider", 38);
         ProducerTemplate producer = context.createProducerTemplate();
-        //producer.sendBody("file://target/out", customer);
-        //producer.sendBody("jms://test", customer);
-        
-        // At this point you should copy the file from the out dir to the in dir to see that it is processed
-        System.in.read();
-        context.shutdown();
+        producer.sendBody("file://target/out", customer); 
+        producer.sendBody("jms://test", customer);
     }
 
     /**
@@ -88,5 +97,6 @@ public class JaxbRouteBuilder extends RouteBuilder {
          */
         from("file://target/in").to("log:testfile").bean(new CustomerReciever());
         from("jms://test").to("log:testjms").bean(new CustomerReciever());
+            
     }
 }
