@@ -1,0 +1,1 @@
+install -s mvn:org.apache.cxf.samples/wsdl_first_mtom/1.0.0-SNAPSHOT

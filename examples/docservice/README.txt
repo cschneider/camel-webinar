@@ -1,0 +1,1 @@
+install -s mvn:org.apache.cxf.samples/docservice/1.0.0-SNAPSHOT

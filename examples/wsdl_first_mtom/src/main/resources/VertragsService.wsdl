@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/VertragsService/" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="VertragsService" targetNamespace="http://www.example.org/VertragsService/"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.example.org/VertragsService/">
+      <xsd:element name="anlegen">
+        <xsd:complexType>
+          <xsd:sequence>
+          	<xsd:element name="id" type="xsd:string" />
+          	<xsd:element name="datum" type="xsd:date"></xsd:element>
+          	<xsd:element name="anlagen" type="xsd:base64Binary" maxOccurs="unbounded" minOccurs="0" xmime:expectedContentTypes="application/octet-stream"></xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="anlegenResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="out" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="anlegenRequest">
+    <wsdl:part element="tns:anlegen" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="anlegenResponse">
+    <wsdl:part element="tns:anlegenResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="VertragsService">
+    <wsdl:operation name="anlegen">
+      <wsdl:input message="tns:anlegenRequest"/>
+      <wsdl:output message="tns:anlegenResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="VertragsServiceSOAP" type="tns:VertragsService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="anlegen">
+      <soap:operation soapAction="http://www.example.org/VertragsService/anlegen"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="VertragsService">
+    <wsdl:port binding="tns:VertragsServiceSOAP" name="VertragsServiceSOAP">
+      <soap:address location="http://localhost:9090/CustomerServicePort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
