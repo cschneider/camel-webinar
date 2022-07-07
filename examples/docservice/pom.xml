@@ -9,7 +9,7 @@
     <packaging>bundle</packaging>
 
     <properties>
-        <cxf.version>2.6.1</cxf.version>
+        <cxf.version>2.6.11</cxf.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
